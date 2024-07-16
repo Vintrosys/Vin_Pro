@@ -55,8 +55,6 @@ def get_columns():
 def get_data(filters):
     from_date = filters.get('start_date')
     to_date = filters.get('end_date')
-    #frappe.msgprint(f"from date: {from_date}")
-    #frappe.msgprint(f"To date: {to_date}")
 
     employee_checkins = get_employee_checkins(from_date, to_date)
     employee_timesheets = get_employee_timesheets(from_date, to_date)
@@ -78,7 +76,7 @@ def get_data(filters):
                 "hrs_timesheet": hrs_timesheet,
                 "hrs_difference": hrs_difference
             })
-    #frappe.msgprint(f"Data: {data}")
+    
     return data
 def get_employee_checkins(from_date, to_date):  
     checkins = frappe.db.sql("""
@@ -96,7 +94,7 @@ def get_employee_checkins(from_date, to_date):
         if checkin.employee not in employee_checkins:
             employee_checkins[checkin.employee] = {}
         employee_checkins[checkin.employee][checkin.date] = flt(checkin.hrs)
-    #frappe.msgprint(f"employee checkins {employee_checkins}")
+    
     return employee_checkins
 
 def get_employee_timesheets(from_date, to_date):
@@ -116,7 +114,7 @@ def get_employee_timesheets(from_date, to_date):
         if timesheet.employee not in employee_timesheets:
             employee_timesheets[timesheet.employee] = {}
         employee_timesheets[timesheet.employee][timesheet.date] = flt(timesheet.hrs)
-    #frappe.msgprint(f"employee timesheet {employee_timesheets}")
-    
+        
+            
     return employee_timesheets
     
